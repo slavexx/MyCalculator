@@ -1,7 +1,9 @@
 #include <QGridLayout>
+#include <Qapplication.h>
 #include <QPushButton>
 #include <qlabel.h>
 #include <qlist.h>
+
 #include "Calculator.h"
 
 Calculator::Calculator(QWidget* parent)
@@ -24,7 +26,7 @@ Calculator::Calculator(QWidget* parent)
         "7", "8", "9", "*",
         "4", "5", "6", "-",
         "1", "2", "3", "+",
-        "+/-", "0", ",", "="
+        "+/-", "0", ".", "="
     };
     QFont* fontBtn = new QFont();
     fontLabel->setPointSizeF(9);
@@ -32,7 +34,9 @@ Calculator::Calculator(QWidget* parent)
         btn[i].setText(NameBtns[i]);
         btn[i].setFont(*fontLabel);
     }
-    
+
+    //connect(btn + 4, QPushButton::clicked, qApp, Calculator::digitClicked());
+
     QHBoxLayout* hb1 = new QHBoxLayout(this);
     for (int i = 0; i < 4; ++i) hb1->addWidget(btn + i);
     QHBoxLayout* hb2 = new QHBoxLayout(this);
@@ -54,4 +58,17 @@ Calculator::Calculator(QWidget* parent)
     vb->addLayout(hb4);
     vb->addLayout(hb5);
     setLayout(vb);
+}
+
+void Calculator::digitClicked() {
+    QPushButton* clickedButton = qobject_cast<QPushButton*>(sender());
+    int digitValue = clickedButton->text().toInt();
+    if (!pressedOperation) {
+        leftOperand = leftOperand * 10 + digitValue;
+    }
+    else
+    {
+        rightOperand = rightOperand * 10 + digitValue;
+    }
+    label->setText(label->text() + QString::number(digitValue));
 }
