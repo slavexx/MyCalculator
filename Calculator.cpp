@@ -1,6 +1,4 @@
 #include <QGridLayout>
-#include <Qapplication.h>
-#include <QPushButton>
 #include <qlabel.h>
 #include <qlist.h>
 
@@ -35,7 +33,16 @@ Calculator::Calculator(QWidget* parent)
         btn[i].setFont(*fontLabel);
     }
 
-    //connect(btn + 4, QPushButton::clicked, qApp, Calculator::digitClicked());
+    connect(btn + 4, &QPushButton::clicked, this,  &Calculator::digitClicked);
+    connect(btn + 5, &QPushButton::clicked, this,  &Calculator::digitClicked);
+    connect(btn + 6, &QPushButton::clicked, this,  &Calculator::digitClicked);
+    connect(btn + 8, &QPushButton::clicked, this,  &Calculator::digitClicked);
+    connect(btn + 9, &QPushButton::clicked, this,  &Calculator::digitClicked);
+    connect(btn + 10, &QPushButton::clicked, this,  &Calculator::digitClicked);
+    connect(btn + 12, &QPushButton::clicked, this,  &Calculator::digitClicked);
+    connect(btn + 13, &QPushButton::clicked, this,  &Calculator::digitClicked);
+    connect(btn + 14, &QPushButton::clicked, this,  &Calculator::digitClicked);
+    connect(btn + 17, &QPushButton::clicked, this,  &Calculator::digitClicked);
 
     QHBoxLayout* hb1 = new QHBoxLayout(this);
     for (int i = 0; i < 4; ++i) hb1->addWidget(btn + i);
@@ -70,5 +77,6 @@ void Calculator::digitClicked() {
     {
         rightOperand = rightOperand * 10 + digitValue;
     }
+    if (label->text() == "0") label->setText("");
     label->setText(label->text() + QString::number(digitValue));
 }
