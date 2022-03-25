@@ -9,6 +9,7 @@ int main(int argc, char* argv[]) {
 	window.setFixedSize(280, 250);
 	window.setWindowIcon(QIcon("images/calc.jpg"));
 	window.setWindowTitle("Calculator");
+
 	window.show();
 
 	return app.exec();
